@@ -41,9 +41,9 @@ public class EventServiceImpl implements EventService {
                         eventAttendeeRepository.linkAttendee(event.getEventId(), attendeeId));
             }
             event.setAttendees(eventAttendeeRepository.getAttendeesByEventId(event.getEventId()));
-            return event;
+            return getEventById(event.getEventId());
         } catch (DataIntegrityViolationException e) {
-            throw new EntityExistsException("Event name already exists.");
+            throw new EntityExistsException("An event with the same name and date already exists.");
         }
     }
 
@@ -60,9 +60,9 @@ public class EventServiceImpl implements EventService {
             }
 
             updated.setAttendees(eventAttendeeRepository.getAttendeesByEventId(id));
-            return updated;
+            return getEventById(id);
         } catch (DataIntegrityViolationException e) {
-            throw new EntityExistsException("Event name already exists.");
+            throw new EntityExistsException("An event with the same name and date already exists.");
         }
     }
 
